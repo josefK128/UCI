@@ -21,7 +21,6 @@ docs
 # internal notes - last change
 # dome resources, notes, printer-versions, hide from transpile, etc.
 ~*
-*.txt
 *.pr   
 *-pr   
 *-hide
