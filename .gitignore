@@ -6,10 +6,7 @@
 
 
 # NOTE: ./node_modules can be built from package.json
-# they are dev-dependencies only
-# dependencies are in app/node_modules, app/libs, app/jspm_packages
-# build node_modules locally from package.json by:
-# root> npm install --savedev
+# root> npm install 
 # NOTE: need build to be copied since utils/three.js/build is needed
 node_modules
 jspm_packages
