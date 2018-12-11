@@ -6,8 +6,8 @@ particular data item. Traditionally consensus was achieved by the coercive
 (and corruptible) force of a central authority which simply declared the
 universal value of each data item. If the central authority was trustworthy
 and able to secure its decision-making mechanism than all was well. However,
-even in principle, it is better if the agreement on values was based on an
-'objective' and transparent means which functioned continuously despite the
+even in principle, it is better if the agreement on values is based on an
+'objective' and transparent means which functions continuously despite the
 presence of corrupt or unreliable nodes on the network.
 
 The greatest innovation of Satoshi Nakamota's 2009 Bitcoin blockchain system
@@ -15,12 +15,13 @@ and paper (https://bitcoin.org/bitcoin.pdf) is a methodology to permit
 decentralized consensus, therefore obviating the need for central authorities
 in many disparate fields and domains.
 
-In the context of cryptocurrencies consensus provide the means to validate
+In the context of cryptocurrencies consensus provides the means to validate
 transactions and prevent the 'double spend problem' 
 (https://www.investopedia.com/terms/d/doublespending.asp) which was seen in
-the discussion of blockchain and the CAP Theorem in which Jill received Jack's 
-ten dollars but also retained her ten dollars of cryptocurrency which she 
-could then choose to 'spend again' in some new transaction.
+one form in the discussion of blockchain and the CAP Theorem in which Jill 
+received Jack's ten dollars but also retained her ten dollars of 
+cryptocurrency which she could then choose to 'spend again' in some new 
+transaction.
 
 There are several categories of consensus algorithms which are being 
 discussed and many variations on each, and there will almost certainly be more.
@@ -30,9 +31,11 @@ The mechanism currently used in the real world is PoW.
 
 Proof-of-Work achieves consensus not explicitly by a vote at a fixed moment
 which decides value and/or validity, but by an emergent process involving
-participation of a specialized subset of the network called 'miners',
-and entire network as a whole which verifies the 'work' of the miners in
-order to decide which transactions are valid.
+participation of a specialized subset of the network participants called 
+'miners', and entire set of network participants as a whole who verify the 
+'work' of the miners in order to decide if a block of transactions is valid,
+and which of a possible group of valid 'mined' blocks is to be added to the 
+chain.
 
 Mining is the process in which pending transactions are collected into a 
 'block' (structure and characteristics to be specified later) which is used
@@ -91,16 +94,19 @@ Miners choose the end block of the longest chain in the blockchain, that is,
 the chain with the greatest accumulation of 'work' and the greatest length.
 Attaching a candidate block at the longest chain yields the greatest 
 probability that the newly elongated chain will become the validated blockchain
-(since other miners will build upon it, being the longest chain) and therefore
-reward the miner with the reward of minted coins and collective transaction 
-fees. The inclusion of the hash of the parent block in the header of the
-child block is how the blocks are 'chained' together, hence 'blockchain',
-similar in structure to a single-linked-list in software data structures.
-We will look at the assembly and selection of chains of blocks further on, as
-well as the temporary difficulty of two or more chains of equal length and
-proof-of-work called a consistency 'fork' (there are also deliberately induced 
-forks in the blockchain but these are entirely different and will be discussed
-in future).
+(since other miners will choose that candidate block to 'mine' (compete
+to solve the cryptographic problem associated with the candidate block).
+The mined (solved) block(s) on the longest chain also attract the greatest
+number of validatoirs and propagators, thus rewarding the miner first solving
+the cryptographic problem 'lottery' with the reward of minted coins and 
+collective transaction fees. The inclusion of the hash of the parent block 
+in the header of the child block is how the blocks are 'chained' together,
+hence 'blockchain', similar in structure to a single-linked-list in software 
+data structures. We will look at the assembly and selection of chains of 
+blocks further on, as well as the temporary difficulty of two or more chains 
+of equal length and proof-of-work called a consistency 'fork' (there are also 
+deliberately induced forks in the blockchain but these are entirely different 
+and will be discussed in future).
 
 The first step in the PoW process is the miner collecting together a set of 
 pending transactions, usually those with greatest attached transaction fees,
@@ -109,7 +115,7 @@ chosen as parent, the tail of the longest chain, the chain containing the
 greatest accumulation of calculation 'work'. This candidate block contains
 a special first transaction called the Coinbase Transaction, which rewards the
 miner with coins into his wallet upon correct solution of the cryptographic
-problem nd inclusion of the candidate block in the blockchain, and a block
+problem and inclusion of the candidate block in the blockchain, and a block
 header consisting of:
 [1] timestamp
 [2] a version number of the present software/protocol
@@ -121,9 +127,9 @@ header consisting of:
     calculation, and initialized to zero)
 
 Mining in Bitcoin consists of calculating the SHA256 hash value of the 
-candidate block and checking to see if that hash has at least D zeros, where
-D is termed the 'difficulty' of the problem. The greater the value of D the 
-greater the difficulty of obtaining a hash with D leading zeros. The SHA256
+candidate block and checking to see if that hash has at least D leading zeros, 
+where D is termed the 'difficulty' of the problem. The greater the value of D 
+the greater the difficulty of obtaining a hash with D leading zeros. The SHA256
 value is 256-bits long, so the problem mechanism, f(c,x) = SHA256(SHA256(c|x), 
 where c is the 'challenge' (the candidate block header) and x is the nonce 
 value, produces values in {0,1,2,..., 2**256-1}.
@@ -139,7 +145,7 @@ problem requires electricity which in turn costs money.
 It should also be noted that hash algorithms such as SHA256 produce essentially 
 random results despite the change of a single bit, so certainly for
 the change of the value of the nonce, and no previous hash result has any
-bearing on a present result - solving the cryptographic problem is pure
+bearing on a present result. Solving the cryptographic problem is pure
 chance, so miners cannot use clever algorithms to gain advantage (well,
 except perhaps through quantum computing, but quantum computers are very
 expensive and their algorithms are at an early stage, so for the moment
@@ -149,10 +155,10 @@ The basic form of P[f,D] is to run f(c,x) with initial nonce value zero,
 check whether the result is less than 2**224/D, and if so propose the block
 as the new blockchain 'tail', and if not, increment the nonce and start again.
 
-The fundamental idea is that findin a solution and attaching a block is very 
+The fundamental idea is that finding a solution and attaching a block is very 
 expensive, and since blocks contain the hashes of their parents, the cost
-of falsifying and replacing the blockchain is for all practical purposes
-prohibitive.
+of falsifying and necessarily replacing blocks in the previous blockchain is 
+for all practical purposes prohibitive.
 
 It should be noted that the cost to validate a solution for P[f,D] is very
 very cheap, so it can be carried out by ordinary nodes in the network with
@@ -172,7 +178,7 @@ Validation of the block consists of checking the following:
 [6] the first transaction is the Coinbase Transaction
 
 The final step is assembling the block on the local blockchain of the node at
-the proposed parent block and propogation of the block to other nodes for their
+the proposed parent block and propagation of the block to other nodes for their
 validation and assembly. nodes maintain three sets of blocks: the main
 blockchain itself, branches off the main chain caused by mined blocks with
 f(c,x) solutions, and 'orphaned' blocks which have f(c,x) solutions but do not
@@ -224,7 +230,7 @@ a phased trial introduction of a PoS mechanism operating once every Nth block,
 where N is proposed to decrease over time.
 
 In addition to the energy problem, it is argued that PoW as presently 
-implemente on the Bitcoin network and elsewhere, is subject to consolidation
+implemented on the Bitcoin network and elsewhere, is subject to consolidation
 of miners into central cartels and even monopolies creating opportunities
 for falsifying blocks by what is loosely termed the '51% attack'. An interesting
 approach to modernizing the PoW algorithm is proposed by two researchers from
